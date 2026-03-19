@@ -1,21 +1,18 @@
 import { ref } from "vue";
 
+const selected = ref([]);
+const history = ref([]);
+
 export function useBoardState() {
-  const selected = ref(new Set());
-  const history = ref([]);
-
   const toggleSquare = (square) => {
-    const next = new Set(selected.value);
+    const exists = selected.value.includes(square);
 
-    if (next.has(square)) {
-      next.delete(square);
-      selected.value = next;
+    if (exists) {
+      selected.value = selected.value.filter((s) => s !== square);
       return;
     }
 
-    next.add(square);
-    selected.value = next;
-
+    selected.value.push(square);
     history.value.push(square);
   };
 

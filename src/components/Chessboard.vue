@@ -4,7 +4,7 @@
       v-for="square in squares"
       :key="square"
       :id="square"
-      :active="selected.has(square)"
+      :active="selected.includes(square)"
       @click="handleClick(square)"
     />
   </div>
@@ -25,7 +25,12 @@ const squares = computed(() => {
 });
 
 const handleClick = (square) => {
+  console.log("clicked:", square);
   toggleSquare(square);
+};
+
+const isActive = (square) => {
+  return selected.value.has(square);
 };
 </script>
 
@@ -33,9 +38,9 @@ const handleClick = (square) => {
 .board {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  width: min(100vw, 100vh);
+  height: min(100vw, 100vh);
   aspect-ratio: 1 / 1;
-  width: 100%;
-  height: 100%;
   min-width: 264px;
   min-height: 264px;
 }
