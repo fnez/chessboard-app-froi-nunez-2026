@@ -7,4 +7,5 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
   },
+  base: "/chessboard-app-froi-nunez-2026/",
 });
