@@ -1,6 +1,6 @@
 <template>
   <div class="board">
-    <div class="inner">
+    <div class="grid">
       <Square
         v-for="square in squares"
         :key="square"
@@ -19,16 +19,17 @@ import Square from "./Square.vue";
 const selected = ref([]);
 const history = ref([]);
 
+const emit = defineEmits(["update:history"]);
+
 const squares = computed(() => {
   const files = "ABCDEFGH".split("");
   const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
+
   return ranks.flatMap((rank) => files.map((file) => `${file}${rank}`));
 });
 
 const handleClick = (square) => {
-  const exists = selected.value.includes(square);
-
-  if (exists) {
+  if (selected.value.includes(square)) {
     selected.value = selected.value.filter((s) => s !== square);
     return;
   }
@@ -38,27 +39,34 @@ const handleClick = (square) => {
 
   emit("update:history", history.value);
 };
-
-const emit = defineEmits(["update:history"]);
 </script>
 
 <style scoped>
 .board {
-  max-width: 100%;
-  aspect-ratio: 1 / 1;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
 }
 
-.inner {
+.grid {
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 1;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
 }
+
 @media (max-width: 767px) {
   .board {
-    width: 100%;
+    padding: 12px;
+  }
+
+  .grid {
+    max-width: 100%;
   }
 }
 </style>

@@ -16,8 +16,8 @@ const history = ref([]);
 <style>
 .layout {
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 @media (max-width: 767px) {

@@ -1,27 +1,31 @@
 <template>
-  <div class="square" :class="[{ dark: isDark, active }]" @click="handleClick">
+  <div class="square" :class="{ dark: isDark, active }" @click="emit('click')">
     <span class="label">{{ id }}</span>
   </div>
 </template>
 
 <script setup>
-const { id, active } = defineProps({
+const props = defineProps({
   id: String,
   active: Boolean,
 });
 
-const file = id.charCodeAt(0) - 65;
-const rank = parseInt(id[1], 10);
-const isDark = (file + rank) % 2 === 0;
-
 const emit = defineEmits(["click"]);
-const handleClick = () => emit("click");
+
+const fileIndex = props.id.charCodeAt(0) - "A".charCodeAt(0);
+const rank = Number(props.id[1]);
+
+const isDark = (fileIndex + rank) % 2 === 0;
 </script>
 
 <style scoped>
 .square {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
   cursor: pointer;
-  aspect-ratio: 1 / 1;
 }
 
 .square.dark {
@@ -33,14 +37,12 @@ const handleClick = () => emit("click");
 }
 
 .square.active {
-  background-color: goldenrod;
+  background: goldenrod;
 }
 
 .label {
-  /* position: absolute;
-  bottom: 4px;
-  right: 4px;
   font-size: 10px;
-  opacity: 0.6; */
+  margin: 4px;
+  color: #555;
 }
 </style>
