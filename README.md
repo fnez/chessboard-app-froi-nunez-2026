@@ -15,7 +15,10 @@ This project displays a chessboard alongside a sidebar that logs user interactio
   - Desktop → sidebar on the right
   - Mobile → sidebar below the board
 - Board resizes to fit the viewport (minimum size enforced)
-- Unit testing included
+- Unit testing included for :
+  - ChessBoard
+  - Sidebar
+  - Square
 
 ## 🛠️ Tech Stack
 

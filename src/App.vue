@@ -1,57 +1,28 @@
 <template>
   <div class="layout">
-    <div class="board-wrapper">
-      <ChessBoard />
-    </div>
+    <ChessBoard @update:history="history = $event" />
     <Sidebar :history="history" />
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import ChessBoard from "./components/ChessBoard.vue";
 import Sidebar from "./components/Sidebar.vue";
-import { useBoardState } from "./composables/useBoardState";
 
-const { history } = useBoardState();
+const history = ref([]);
 </script>
 
 <style>
 .layout {
   display: flex;
   height: 100vh;
+  width: 100vw;
 }
 
-/* Desktop */
-@media (min-width: 768px) {
-  .layout {
-    flex-direction: row;
-  }
-
-  .board-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-  }
-
-  .sidebar {
-    width: 260px;
-  }
-}
-
-/* Mobile */
 @media (max-width: 767px) {
   .layout {
     flex-direction: column;
-  }
-
-  .board-wrapper {
-    width: 100%;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: 200px;
   }
 }
 </style>
